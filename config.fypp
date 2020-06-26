@@ -1,0 +1,27 @@
+#!--------------------------------------------------------------------------------------------------!
+#! CONFIGURATION PARAMETERS                                                                         !
+#! this file can be edited freely to change supported tensor ranks and data types                   !
+#! 2 Variables can be defined externally:
+#! RANK: maximum tensor rank (default 7)
+#! DEBUG: 0 (debug code disabled) or 1 (debug code enabled) (default 0)
+#!--------------------------------------------------------------------------------------------------!
+
+#:if not defined('RANK')
+   #:set RANK = 7
+#:endif
+
+#:if not defined('DEBUG')
+   #:set DEBUG = 0
+#:endif
+
+#! data types
+#:set data_type = ['integer', 'integer', 'real', 'real', 'complex', 'complex']
+#! data kinds (precision)
+#:set data_kind = ['int32', 'int64', 'real32', 'real64', 'real32', 'real64']
+#! unique names for data types
+#:set data_name = ['i4', 'i8', 'r4', 'r8', 'c4', 'c8']
+
+#:def import_kinds()
+#! what data types to import
+   USE iso_fortran_env, ONLY: int32, int64, real32, real64
+#:enddef

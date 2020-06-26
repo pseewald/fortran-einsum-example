@@ -1,0 +1,73 @@
+#!--------------------------------------------------------------------------------------------------!
+#! FYPP MACROS                                                                                      !
+#!--------------------------------------------------------------------------------------------------!
+#:mute
+
+#:include 'config.fypp'
+
+
+#! often used lists of data types
+
+#:set ranks = range(0, RANK+1)
+#:set data_combined = [t + '(' + k + ')' for t, k in zip(data_type, data_kind)]
+#:set data_params = list(zip(data_name, data_combined, data_kind))
+
+
+#! useful macros depending on tensor rank 'n'
+
+#:def shape(n)
+#! returns '(:, :, ..., :)'
+$:'' if n == 0 else '(' + ':' + ',:' * (n - 1) + ')'
+#:enddef
+
+#:def varlist(name, n)
+#! returns 'name1, name2, ..., namen'
+$: '' if n == 0 else ', '.join([name + str(i) for i in range(1, n+1)])
+#:enddef
+
+#:def arrlist(name, n)
+#! returns '(name(1), name(2), ..., name(n))'
+$: '' if n == 0 else '(' + ', '.join([name + "(" + str(i) + ")" for i in range(1, n+1)]) + ')'
+#:enddef
+
+
+#! debug utilities
+
+#:def ABORT(msg=None)
+   #:if DEBUG > 0
+      #:if msg is not None
+         write(*,*) ${msg}$
+      #:endif
+      write(*,*) 'File: ${_FILE_}$'
+      write(*,*) 'Line: ', ${_LINE_}$
+      stop
+   #:endif
+#:enddef
+
+#:def ASSERT(cond, msg=None)
+   #:if DEBUG > 0
+      if (.not. (${cond}$)) then
+         write(*,*) 'Assert failed'
+         write(*,*) 'Condition: ${cond.replace("'", "''")}$'
+         $:ABORT(msg)
+      endif
+   #:endif
+#:enddef
+
+#:def assert_select_type_default(msg=None)
+   #:if DEBUG > 0
+      class default
+         write(*,*) 'unexpected class default'
+         $:ABORT(msg)
+   #:endif
+#:enddef
+
+#:def assert_select_case_default(msg=None)
+   #:if DEBUG > 0
+      case default
+         write(*,*) 'unexpected case default'
+         $:ABORT(msg)
+   #:endif
+#:enddef
+
+#:endmute
