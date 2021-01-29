@@ -1,6 +1,6 @@
 # fortran-einsum-example
 
-This project goes back to a talk I gave at the [FortranCon conference 2020](https://tcevents.chem.uzh.ch/event/12/). It demonstrates how to develop generic APIs in Fortran using polymorphism and a preprocessor by the example of tensor contraction / Einstein summation. To learn more have a look at the [presentation slides](presentation.pdf).
+This project goes back to a talk I gave at the [FortranCon conference 2020](https://tcevents.chem.uzh.ch/event/12/). It demonstrates how to develop generic APIs in Fortran by making use of polymorphism and generic programming techniques. This specific example implements a tensor contraction / Einstein summation API. To learn more have a look at the [presentation slides](presentation.pdf).
 
 
 ## Examples
